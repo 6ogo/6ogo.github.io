@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search UGCs</title>
+    <!-- Link to the common stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" ><img src="images/logo.png" alt="Logo"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="map.html">Map overview</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="index.html" id="registerButton" class="btn-primary">Log-out</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="search-container">
+            <h1>Search UGCs</h1>
+            <form id="searchForm">
+                <label for="imageName">UGC Name:</label>
+                <input type="text" id="imageName" name="imageName" placeholder="Enter image name">
+
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" placeholder="Enter location">
+
+                <label for="description">Description:</label>
+                <input type="text" id="description" name="description" placeholder="Enter description">
+
+                <label for="tags">Tags:</label>
+                <input type="text" id="tags" name="tags" placeholder="Enter tags (comma separated)">
+
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="results-container" id="resultsContainer">
+            <!-- Search results will appear here -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Your Website Name. All rights reserved.</p>
+    </footer>
+
+    <script src="search.js"></script>
+</body>
+</html>

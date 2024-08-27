@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UGC World Map</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" ><img src="images/logo.png" alt="Logo"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="search.html">Image search</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="index.html" id="registerButton" class="btn-primary">Log-out</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="mapSection">
+        <div id="worldMap"></div>
+        <div id="infoPanel" class="slide-in-menu">
+            <div class="location-title-container">
+                <h2 id="locationTitle" class="location-title"></h2>
+                <span id="closePanel" class="close-button">&times;</span>
+            </div>
+            <div id="ugcContent">
+                Content will play here
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+    <script src="js/map.js"></script>
+</body>
+</html>
