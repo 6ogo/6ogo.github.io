@@ -1,0 +1,263 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header .logo img {
+    width: 80px;
+}
+
+.search-section {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.search-box {
+    width: 80%;
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.trending-tags {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.trending-tags h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.tags {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.tag:hover {
+    background-color: #0056b3;
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.filter-buttons button {
+    padding: 10px 15px;
+    margin: 0 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.filter-buttons button.active {
+    background-color: #0056b3;
+}
+
+.masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 150px;
+    gap: 10px;
+    padding: 10px;
+}
+
+.masonry-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.masonry-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.ugc-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    visibility: hidden;
+}
+
+.masonry-item:hover .ugc-info {
+    opacity: 1;
+    visibility: visible;
+}
+
+.masonry-item:hover {
+    transform: scale(1.05);
+}
+
+/* Loader styles */
+.loader {
+    text-align: center;
+    margin: 20px 0;
+    display: none;
+    /* Hidden initially */
+}
+/* Popup styles */
+.ugc-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.popup-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    height: auto;
+    max-height: 80vh;  /* Limit the height of the entire popup */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;  /* Ensure content doesn't overflow */
+}
+
+.popup-image {
+    max-width: 100%;
+    max-height: 50vh;  /* Limit the image height to ensure space for buttons */
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    object-fit: contain;  /* Ensure the entire image fits within the designated area */
+}
+
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.sidebar-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-button i {
+    margin-right: 8px;
+}
+
+.sidebar-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive adjustments for smaller devices */
+@media (max-width: 768px) {
+    .popup-content {
+        max-width: 90%;
+        max-height: 70vh;  /* Adjust for smaller screens */
+    }
+
+    .popup-image {
+        max-height: 40vh;  /* Reduce image height further on smaller screens */
+    }
+
+    .sidebar-button {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .popup-content {
+        padding: 10px;
+        max-height: 60vh;  /* Further adjust for very small screens */
+    }
+
+    .popup-image {
+        max-height: 30vh;  /* Further reduce image height for very small screens */
+    }
+
+    .sidebar-button {
+        font-size: 12px;
+    }
+}

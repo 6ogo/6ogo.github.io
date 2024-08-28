@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UGC Discovery</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/discovery.css">
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="images/logo.png" alt="Logo"></a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="map.html">Map</a></li>
+                    <li><a href="search.html">Search</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                    <li><a href="index.html" id="registerButton" class="btn-primary">Log-out</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-section">
+            <input type="text" id="searchBox" class="search-box" placeholder="Search for UGC...">
+        </div>
+
+        <div class="trending-tags">
+            <h2>Trending Tags</h2>
+            <div class="tags">
+                <span class="tag" data-tag="gaza">#gaza</span>
+                <span class="tag" data-tag="fire">#fire</span>
+                <span class="tag" data-tag="riot">#riot</span>
+                <span class="tag" data-tag="police">#police</span>
+                <span class="tag" data-tag="london">#london</span>
+                <span class="tag" data-tag="earthquake">#earthquake</span>
+                <span class="tag" data-tag="protest">#protest</span>
+                <span class="tag" data-tag="flood">#flood</span>
+            </div>
+        </div>
+
+        <div class="trending-tags">
+            <p style="font-weight: bolder;">Most recommended</p>
+            <div class="filter-buttons">
+                <button id="filterDay" class="filter-button active">Today</button>
+                <button id="filterWeek" class="filter-button">This week</button>
+                <button id="filterMonth" class="filter-button">This month</button>
+            </div>
+        </div>
+
+        <div id="masonryGrid" class="masonry-grid">
+            <!-- UGC items will be loaded here dynamically -->
+        </div>
+
+        <div id="loader" class="loader">
+            <p>Loading more content...</p>
+        </div>
+    </div>
+
+    <script src="js/discovery.js"></script>
+</body>
+</html>
