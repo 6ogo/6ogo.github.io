@@ -68,23 +68,24 @@ document.addEventListener("DOMContentLoaded", function () {
             // Show UGC content for the clicked location
             const ugcId = `${closestPoint[0]}-${closestPoint[1]}`;
             ugcContent.innerHTML = `
-            <div class="content-area">
-                ${getSpotContent(closestPoint)}
-            </div>
-            <div class="sidebar-bottom">
-                <div class="action-buttons">
-                    <div class="action-icons">
-                        <a href="#" id="buyButton" class="sidebar-button"><i class="fas fa-shopping-cart"></i> Buy</a>
-                        <a href="#" id="contactCreator" class="sidebar-button"><i class="fas fa-comments"></i> Contact Creator</a>
-                        <a href="#" id="recommendButton" class="sidebar-button"><i class="fas fa-thumbs-up"></i> Recommend <span id="recommendCount">12</span></a>
-                        <a href="#" id="moreInfoButton" class="sidebar-button"><i class="fas fa-info-circle"></i> More Info</a>
-                    </div>
+                <div class="content-area">
+                    ${getSpotContent(closestPoint)}
                 </div>
-            </div>`;
+                <div class="sidebar-bottom">
+                    <div class="action-buttons">
+                        <div class="action-icons">
+                            <a href="#" id="buyButton" class="sidebar-button"><i class="fas fa-shopping-cart"></i> Buy</a>
+                            <a href="#" id="contactCreator" class="sidebar-button"><i class="fas fa-comments"></i> Contact Creator</a>
+                            <a href="#" id="recommendButton" class="sidebar-button"><i class="fas fa-thumbs-up"></i> Recommend <span id="recommendCount">12</span></a>
+                            <a href="#" id="moreInfoButton" class="sidebar-button"><i class="fas fa-info-circle"></i> More Info</a>
+                        </div>
+                    </div>
+                </div>`;
 
             console.log('Sidebar should open now'); // Debugging statement
             infoPanel.classList.add('active'); // Add 'active' class to slide in the sidebar
 
+            // Attach event listeners to dynamically added buttons
             document.getElementById('recommendButton').addEventListener('click', function () {
                 if (!recommendedUGCs.has(ugcId)) {
                     let recommendCount = document.getElementById('recommendCount');
@@ -94,6 +95,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else {
                     alert("You've already recommended this UGC.");
                 }
+            });
+
+            document.getElementById('buyButton').addEventListener('click', function () {
+                setupBuyButtonLogic(); // Call the logic to open the buy popup
             });
 
             document.getElementById('moreInfoButton').addEventListener('click', function () {
@@ -240,62 +245,60 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.removeChild(modal);
         });
     }
-    document.addEventListener("DOMContentLoaded", function () {
-        // Existing JavaScript code...
-    
-        // Buy Button Logic
-        function setupBuyButtonLogic() {
-            const buyPopup = document.getElementById('buyPopup');
-            const closeBuyPopup = document.querySelector('.close-buy-popup');
-            const buyWithCreditsButton = document.getElementById('buyWithCredits');
-            const buyWithCardButton = document.getElementById('buyWithCard');
-            const creditsSection = document.getElementById('creditsSection');
-            const useCreditsButton = document.getElementById('useCredits');
-            const addCreditsButton = document.getElementById('addCredits');
-    
-            document.getElementById('buyButton').addEventListener('click', function () {
-                buyPopup.style.display = 'block';
-            });
-    
-            closeBuyPopup.addEventListener('click', function () {
-                buyPopup.style.display = 'none';
-            });
-    
-            buyWithCreditsButton.addEventListener('click', function () {
-                creditsSection.classList.remove('hidden');
-            });
-    
-            useCreditsButton.addEventListener('click', function () {
-                const creditBalanceElement = document.getElementById('creditBalance');
-                let creditBalance = parseInt(creditBalanceElement.textContent);
-    
-                if (creditBalance >= 10) { // Assuming 10 credits are required to purchase
-                    alert("Purchase successful using credits!");
-                    creditBalance -= 10;
-                    creditBalanceElement.textContent = creditBalance;
-                    buyPopup.style.display = 'none';
-                } else {
-                    alert("Insufficient credits. Please add more credits.");
-                }
-            });
-    
-            addCreditsButton.addEventListener('click', function () {
-                const creditBalanceElement = document.getElementById('creditBalance');
-                let creditBalance = parseInt(creditBalanceElement.textContent);
-                creditBalance += 50; // Add 50 credits
+
+    // Buy Button Logic
+    function setupBuyButtonLogic() {
+        const buyPopup = document.getElementById('buyPopup');
+        const closeBuyPopup = document.querySelector('.close-buy-popup');
+        const buyWithCreditsButton = document.getElementById('buyWithCredits');
+        const creditsSection = document.getElementById('creditsSection');
+        const useCreditsButton = document.getElementById('useCredits');
+        const addCreditsButton = document.getElementById('addCredits');
+        const buyWithCardButton = document.getElementById('buyWithCard');
+
+        // Show the popup
+        buyPopup.style.display = 'block';
+
+        // Close popup logic
+        closeBuyPopup.addEventListener('click', function () {
+            buyPopup.style.display = 'none';
+        });
+
+        // Buy with Credits logic
+        buyWithCreditsButton.addEventListener('click', function () {
+            creditsSection.classList.remove('hidden');
+        });
+
+        useCreditsButton.addEventListener('click', function () {
+            const creditBalanceElement = document.getElementById('creditBalance');
+            let creditBalance = parseInt(creditBalanceElement.textContent);
+
+            if (creditBalance >= 10) { // Assuming 10 credits are required to purchase
+                alert("Purchase successful using credits!");
+                creditBalance -= 10;
                 creditBalanceElement.textContent = creditBalance;
-                alert("50 credits added!");
-            });
-    
-            buyWithCardButton.addEventListener('click', function () {
-                alert("Redirecting to payment portal...");
-                window.location.href = "https://payment-portal.com/checkout?ugc=1"; // Replace with actual portal link
-            });
-        }
-    
-        setupBuyButtonLogic();
-    
-        // Continue with your existing setup...
-    });
-    
+                buyPopup.style.display = 'none';
+            } else {
+                alert("Insufficient credits. Please add more credits.");
+            }
+        });
+
+        addCreditsButton.addEventListener('click', function () {
+            const creditBalanceElement = document.getElementById('creditBalance');
+            let creditBalance = parseInt(creditBalanceElement.textContent);
+            creditBalance += 50; // Add 50 credits
+            creditBalanceElement.textContent = creditBalance;
+            alert("50 credits added!");
+        });
+
+        // Buy with Card logic
+        buyWithCardButton.addEventListener('click', function () {
+            const ugcTitle = document.getElementById('locationTitle').textContent || "UGC Content Title"; // Get title dynamically
+            const ugcDescription = "Description of the selected UGC content"; // Replace with actual description dynamically
+            const ugcPrice = 50; // Assume a static price of $50 for now
+
+            const checkoutUrl = `checkout.html?title=${encodeURIComponent(ugcTitle)}&description=${encodeURIComponent(ugcDescription)}&price=${ugcPrice}`;
+            window.location.href = checkoutUrl;
+        });
+    }
 });

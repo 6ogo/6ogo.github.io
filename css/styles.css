@@ -568,3 +568,146 @@ footer {
     border-radius: 5px;
     cursor: pointer;
 }
+
+/* Checkout Page Styles */
+.checkout-section {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.checkout-section h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: #333;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.cart-item-img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 20px;
+}
+
+.cart-item-details h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.cart-item-details p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.payment-options h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.payment-method {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+.payment-method label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.payment-method input {
+    width: 100%;
+    padding: 10px;
+    border: 1
+}
+
+/* Styles specific to the Buy Popup */
+.buy-popup .buy-button {
+    width: 100%;
+    padding: 10px 20px;
+    margin-top: 10px;
+    background-color: #007bff; /* Default blue color */
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buy-popup .buy-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.buy-popup .buy-button:active {
+    background-color: #003f7f; /* Even darker blue on active/click */
+}
+
+.buy-popup .buy-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); /* Focus ring */
+}
+
+/* Styles for the green buttons */
+.buy-popup #useCredits, 
+.buy-popup #addCredits {
+    background-color: #28a745; /* Green color */
+    margin-top: 10px;
+}
+
+.buy-popup #useCredits:hover, 
+.buy-popup #addCredits:hover {
+    background-color: #218838; /* Darker green on hover */
+}
+
+.buy-popup #useCredits:active, 
+.buy-popup #addCredits:active {
+    background-color: #1e7e34; /* Even darker green on active/click */
+}
+
+/* Payment Button Styles */
+.payment-form .btn-primary,
+.paypal-button {
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.paypal-button {
+    background-color: #ffc439;
+    color: #333;
+}
+
+.payment-form .btn-primary:hover,
+.paypal-button:hover {
+    background-color: #0056b3;
+}
+
+.paypal-button:hover {
+    background-color: #ffb020;
+}
