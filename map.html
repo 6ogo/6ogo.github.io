@@ -41,23 +41,22 @@
         </div>
     </section>
 
-<!-- Buy Popup -->
-<div id="buyPopup" class="buy-popup hidden">
-    <div class="popup-content">
-        <span class="close-buy-popup">&times;</span>
-        <h2>Purchase UGC</h2>
-        <p>How would you like to proceed?</p>
-        <div class="buy-options">
-            <button id="buyWithCard" class="buy-button">Buy with Card</button>
-        </div>
-        <div id="creditsSection" class="credits-section hidden">
-            <p>You have <span id="creditBalance">100</span> credits available.</p>
-            <button id="useCredits" class="buy-button">Use Credits</button>
-            <button id="addCredits" class="buy-button">Add Credits</button>
+    <!-- Buy Popup -->
+    <div id="buyPopup" class="buy-popup hidden">
+        <div class="popup-content">
+            <span class="close-buy-popup">&times;</span>
+            <h2>Purchase UGC</h2>
+            <p>How would you like to proceed?</p>
+            <div class="buy-options">
+                <a href="checkout.html"><button id="buyWithCard" class="buy-button">Buy with Card</button></a>
+            </div>
+            <div id="creditsSection" class="credits-section hidden">
+                <p>You have <span id="creditBalance">100</span> credits available.</p>
+                <button id="useCredits" class="buy-button">Use Credits</button>
+                <button id="addCredits" class="buy-button">Add Credits</button>
+            </div>
         </div>
     </div>
-</div>
-
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>

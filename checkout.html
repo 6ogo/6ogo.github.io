@@ -32,9 +32,9 @@
             <div class="cart-item">
                 <img src="images/ugc-placeholder.jpg" alt="UGC Item" class="cart-item-img">
                 <div class="cart-item-details">
-                    <h2 id="ugcTitle">UGC Content</h2>
+                    <h2 id="ugcTitle">UGC Content </h2>
                     <p id="ugcDescription">Description of the selected UGC content.</p>
-                    <p><strong>Price:</strong> <span id="ugcPrice">$50</span></p>
+                    <p><strong>Price:</strong> <span id="ugcPrice">$XX</span></p>
                 </div>
             </div>
             <div class="payment-options">
@@ -52,12 +52,16 @@
                         <label for="cvv">CVV</label>
                         <input type="text" id="cvv" name="cvv" placeholder="CVV" required>
                     </div>
-                    <button type="submit" id="payWithCard" class="btn-primary">Pay $50</button>
+                
+                    <div class="payment-buttons">
+                        <div class="card-option">
+                            <button type="submit" id="payWithCard" class="btn-primary">Pay $XX</button>
+                        </div>
+                        <div class="paypal-option">
+                            <button id="checkoutWithPaypal" class="btn-primary paypal-button">Checkout with PayPal</button>
+                        </div>
+                    </div>
                 </form>
-                <div class="paypal-option">
-                    <p>Or</p>
-                    <button id="checkoutWithPaypal" class="btn-primary paypal-button">Checkout with PayPal</button>
-                </div>
             </div>
         </div>
     </section>

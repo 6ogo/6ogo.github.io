@@ -683,31 +683,53 @@ footer {
 .buy-popup #addCredits:active {
     background-color: #1e7e34; /* Even darker green on active/click */
 }
-
 /* Payment Button Styles */
+.payment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Space between the buttons and the form fields */
+}
+
+.payment-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Space between the two buttons */
+    width: 50%;
+}
+
+.payment-form .card-option,
+.payment-form .paypal-option {
+    flex: 1;
+}
+
 .payment-form .btn-primary,
-.paypal-button {
-    width: 100%;
-    text-align: center;
+.payment-form .paypal-button {
+    width: 100%; /* Ensure the buttons take up full width of their container */
     padding: 15px;
-    background-color: #007bff;
-    color: #fff;
+    font-size: 16px;
+    text-align: center;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 10px;
+    transition: background-color 0.3s ease;
 }
 
-.paypal-button {
+.payment-form .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.payment-form .paypal-button {
     background-color: #ffc439;
     color: #333;
 }
 
-.payment-form .btn-primary:hover,
-.paypal-button:hover {
+.payment-form .btn-primary:hover {
     background-color: #0056b3;
 }
 
-.paypal-button:hover {
+.payment-form .paypal-button:hover {
     background-color: #ffb020;
 }

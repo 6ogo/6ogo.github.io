@@ -68,19 +68,19 @@ document.addEventListener("DOMContentLoaded", function () {
             // Show UGC content for the clicked location
             const ugcId = `${closestPoint[0]}-${closestPoint[1]}`;
             ugcContent.innerHTML = `
-                <div class="content-area">
-                    ${getSpotContent(closestPoint)}
-                </div>
-                <div class="sidebar-bottom">
-                    <div class="action-buttons">
-                        <div class="action-icons">
-                            <a href="#" id="buyButton" class="sidebar-button"><i class="fas fa-shopping-cart"></i> Buy</a>
-                            <a href="#" id="contactCreator" class="sidebar-button"><i class="fas fa-comments"></i> Contact Creator</a>
-                            <a href="#" id="recommendButton" class="sidebar-button"><i class="fas fa-thumbs-up"></i> Recommend <span id="recommendCount">12</span></a>
-                            <a href="#" id="moreInfoButton" class="sidebar-button"><i class="fas fa-info-circle"></i> More Info</a>
-                        </div>
-                    </div>
-                </div>`;
+    <div class="content-area">
+        ${getSpotContent(closestPoint)}
+    </div>
+    <div class="sidebar-bottom">
+        <div class="action-buttons">
+            <div class="action-icons">
+                <a href="#" id="buyButton" class="sidebar-button"><i class="fas fa-shopping-cart"></i> Buy</a>
+                <a href="#" id="contactCreator" class="sidebar-button"><i class="fas fa-comments"></i> Contact Creator</a>
+                <a href="#" id="recommendButton" class="sidebar-button"><i class="fas fa-thumbs-up"></i> Recommend <span id="recommendCount">12</span></a>
+                <a href="#" id="moreInfoButton" class="sidebar-button"><i class="fas fa-info-circle"></i> More Info</a>
+            </div>
+        </div>
+    </div>`;
 
             console.log('Sidebar should open now'); // Debugging statement
             infoPanel.classList.add('active'); // Add 'active' class to slide in the sidebar
@@ -245,8 +245,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.body.removeChild(modal);
         });
     }
-
-    // Buy Button Logic
+    
     function setupBuyButtonLogic() {
         const buyPopup = document.getElementById('buyPopup');
         const closeBuyPopup = document.querySelector('.close-buy-popup');
@@ -255,24 +254,24 @@ document.addEventListener("DOMContentLoaded", function () {
         const useCreditsButton = document.getElementById('useCredits');
         const addCreditsButton = document.getElementById('addCredits');
         const buyWithCardButton = document.getElementById('buyWithCard');
-
+    
         // Show the popup
         buyPopup.style.display = 'block';
-
+    
         // Close popup logic
         closeBuyPopup.addEventListener('click', function () {
             buyPopup.style.display = 'none';
         });
-
+    
         // Buy with Credits logic
         buyWithCreditsButton.addEventListener('click', function () {
             creditsSection.classList.remove('hidden');
         });
-
+    
         useCreditsButton.addEventListener('click', function () {
             const creditBalanceElement = document.getElementById('creditBalance');
             let creditBalance = parseInt(creditBalanceElement.textContent);
-
+    
             if (creditBalance >= 10) { // Assuming 10 credits are required to purchase
                 alert("Purchase successful using credits!");
                 creditBalance -= 10;
@@ -282,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Insufficient credits. Please add more credits.");
             }
         });
-
+    
         addCreditsButton.addEventListener('click', function () {
             const creditBalanceElement = document.getElementById('creditBalance');
             let creditBalance = parseInt(creditBalanceElement.textContent);
@@ -290,14 +289,15 @@ document.addEventListener("DOMContentLoaded", function () {
             creditBalanceElement.textContent = creditBalance;
             alert("50 credits added!");
         });
-
+    
         // Buy with Card logic
         buyWithCardButton.addEventListener('click', function () {
             const ugcTitle = document.getElementById('locationTitle').textContent || "UGC Content Title"; // Get title dynamically
             const ugcDescription = "Description of the selected UGC content"; // Replace with actual description dynamically
             const ugcPrice = 50; // Assume a static price of $50 for now
-
+    
             const checkoutUrl = `checkout.html?title=${encodeURIComponent(ugcTitle)}&description=${encodeURIComponent(ugcDescription)}&price=${ugcPrice}`;
+            console.log("Redirecting to:", checkoutUrl); // Debugging statement
             window.location.href = checkoutUrl;
         });
     }
