@@ -14,7 +14,7 @@
     <header>
         <div class="container">
             <div class="logo">
-                <a href="index.html" ><img src="images/logo.png" alt="Logo"></a>
+                <a href="index.html"><img src="images/logo.png" alt="Logo"></a>
             </div>
             <nav>
                 <ul>
@@ -30,16 +30,35 @@
     <section id="mapSection">
         <div id="worldMap"></div>
         <div id="infoPanel" class="slide-in-menu">
-            <div class="location-title-container">
-                <h2 id="locationTitle" class="location-title"></h2>
-                <span id="closePanel" class="close-button">&times;</span>
+            <div class="modal-header" style="position: relative;">
+                <span class="location-title" id="locationTitle"></span>
+                <button id="closePanel" class="close-modal" onclick="closeSidebar()">&times;</button>
             </div>
-            <div id="ugcContent">
-                Content will play here
-
+            <div id="ugcContent" class="content-area">
+                <!-- Content from JavaScript will be injected here -->
             </div>
+            <!-- Buttons will be injected by JavaScript, so remove them from here -->
         </div>
     </section>
+
+<!-- Buy Popup -->
+<div id="buyPopup" class="buy-popup hidden">
+    <div class="popup-content">
+        <span class="close-buy-popup">&times;</span>
+        <h2>Purchase UGC</h2>
+        <p>How would you like to proceed?</p>
+        <div class="buy-options">
+            <button id="buyWithCredits" class="buy-button">Buy with Credits</button>
+            <button id="buyWithCard" class="buy-button">Buy with Card</button>
+        </div>
+        <div id="creditsSection" class="credits-section hidden">
+            <p>You have <span id="creditBalance">100</span> credits available.</p>
+            <button id="useCredits" class="buy-button">Use Credits</button>
+            <button id="addCredits" class="buy-button">Add Credits</button>
+        </div>
+    </div>
+</div>
+
 
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>

@@ -163,8 +163,7 @@ footer {
     padding: 20px 0;
 }
 
-/* Search styles*/
-
+/* Search styles */
 .search-container {
     background: white;
     padding: 20px;
@@ -237,7 +236,6 @@ footer {
     margin: 5px 0;
 }
 
-
 /* Modal Styles */
 .modal {
     display: none; /* Ensure the modal is hidden by default */
@@ -255,13 +253,12 @@ footer {
 }
 
 .info-modal {
-    position: fixed;
     z-index: 1002;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%); /* Center the modal */
     width: 35%;
-    max-width: 500px; /* Ensure it doesn't get too large */
+    max-width: 500px;
     background-color: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -274,11 +271,11 @@ footer {
 }
 
 .close-modal {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
     cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
 
 .modal-content h2 {
@@ -290,18 +287,71 @@ footer {
     padding: 0;
 }
 
-.close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 28px;
-    font-weight: bold;
-    color: #333;
+.hidden {
+    display: none;
 }
 
-.close:hover, .close:focus {
-    color: #000;
+.buy-popup {
+    display: none;
+    position: fixed;
+    z-index: 1002;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    padding: 20px;
+    width: 400px;
+    box-sizing: border-box;
+}
+
+.popup-content {
+    position: relative;
+}
+
+.close-buy-popup {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
     cursor: pointer;
+}
+
+.buy-options,
+.credits-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.buy-button {
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+}
+
+.buy-button:hover {
+    background-color: #0056b3;
+}
+
+.credits-section p {
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.credits-section .buy-button {
+    background-color: #28a745;
+}
+
+.credits-section .buy-button:hover {
+    background-color: #218838;
 }
 
 /* World Map Section */
@@ -342,52 +392,107 @@ footer {
     cursor: pointer;
 }
 
-.slide-in-menu .content-area {
-    flex: 1;
-    padding: 20px;
+/* Adjust sidebar to be dynamic in height */
+#infoPanel {
+    position: fixed;
+    right: -400px; /* Start with the sidebar off-screen */
+    top: 0;
+    width: 400px;
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0,0,0,.5);
+    z-index: 1000;
+    transition: right 0.4s ease-in-out;
     overflow-y: auto;
 }
 
-.slide-in-menu .action-buttons {
-    padding: 10px;
-    background-color: #f8f9fa;
-    border-top: 1px solid #ddd;
+#infoPanel.active {
+    right: 0; /* Slide in when active */
 }
 
-.action-icons {
+@media (min-width: 1024px) {
+    #infoPanel {
+        height: 100%; /* Ensure it takes full height of the viewport */
+        overflow-y: visible; /* Disable scrolling on larger screens */
+    }
+
+    .content-area {
+        max-height: calc(100vh - 150px); /* Adjust based on header and button heights */
+        overflow-y: auto; /* Scroll within content area if content overflows */
+    }
+
+    .action-buttons {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        background: white;
+        padding: 10px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+}
+
+/* Sidebar Content and Buttons */
+/* Adjust the padding inside the UGC content area */
+.content-area {
+    padding: 10px; /* Add padding to the sides */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+
+.sidebar-bottom {
+    flex-shrink: 0; /* Prevents the buttons from shrinking */
+    padding-top: 20px;
+}
+
+.action-buttons {
     display: flex;
     flex-direction: column;
+    align-items: stretch;
+    width: 90%; /* Adjust width for better appearance */
+    margin: 0 auto; /* Center buttons in the sidebar */
 }
 
-.action-icons a {
+/* Sidebar buttons */
+.sidebar-button {
+    width: 100%;
+    text-align: center; /* Center text */
+    padding: 8px 15px; /* Adjust padding to make the button thinner */
+    margin-bottom: 10px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    color: #333;
+    text-decoration: none;
     display: flex;
     align-items: center;
-    text-decoration: none;
-    color: #333;
-    background-color: #f8f9fa;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
+    justify-content: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 16px; /* Adjust font size */
 }
 
-.action-icons a:hover {
-    background-color: #e0e0e0;
+.sidebar-button i {
+    margin-right: 8px;
 }
 
-.action-icons a i {
-    margin-right: 10px;
-    font-size: 1.2rem;
+/* Make buttons wider and thinner */
+.sidebar-button:hover {
+    background-color: #eee;
+    transform: translateY(-2px);
 }
 
-.action-icons a span {
-    margin-left: auto;
-    font-size: 0.9rem;
-    color: #888;
+
+@media (min-width: 768px) {
+    .sidebar-button {
+        font-size: 14px;
+        padding: 10px 0;
+    }
 }
 
-.hidden {
-    display: none;
+@media (min-width: 1024px) {
+    .sidebar-button {
+        font-size: 18px;
+        padding: 10px 0;
+    }
 }
 
 .location-title-container {
@@ -404,7 +509,6 @@ footer {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
 
 /* Chat section */
 .chat-window {

@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
         zoomControl: false, // Disable the default zoom control
         maxBounds: [[-90, -180], [90, 180]] // Prevent map from panning out of bounds
     });
-    
+
     // Add a tile layer (this is the map style)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
@@ -48,12 +48,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Handle clicks on the heatmap
     map.on('click', function(e) {
+        console.log('Map clicked at:', e.latlng); // Debugging statement
+
         // Find the closest heatmap point
         const closestPoint = heatmapPoints.reduce((prev, curr) => {
             const prevDist = map.distance([prev[0], prev[1]], e.latlng);
             const currDist = map.distance([curr[0], curr[1]], e.latlng);
             return (currDist < prevDist) ? curr : prev;
         });
+
+        console.log('Closest point:', closestPoint); // Debugging statement
 
         // Check if the click is within a reasonable distance of a heatmap point
         if (map.distance([closestPoint[0], closestPoint[1]], e.latlng) < 50000) { // Adjust this threshold as needed
@@ -64,19 +68,22 @@ document.addEventListener("DOMContentLoaded", function () {
             // Show UGC content for the clicked location
             const ugcId = `${closestPoint[0]}-${closestPoint[1]}`;
             ugcContent.innerHTML = `
-                <div class="content-area">
-                    ${getSpotContent(closestPoint)}
-                </div>
+            <div class="content-area">
+                ${getSpotContent(closestPoint)}
+            </div>
+            <div class="sidebar-bottom">
                 <div class="action-buttons">
                     <div class="action-icons">
-                        <a href="#" id="buyButton"><i class="fas fa-shopping-cart"></i> Buy</a>
-                        <a href="#" id="contactCreator"><i class="fas fa-comments"></i> Contact Creator</a>
-                        <a href="#" id="recommendButton"><i class="fas fa-thumbs-up"></i> Recommend <span id="recommendCount">12</span></a>
-                        <a href="#" id="moreInfoButton"><i class="fas fa-info-circle"></i> More Info</a>
+                        <a href="#" id="buyButton" class="sidebar-button"><i class="fas fa-shopping-cart"></i> Buy</a>
+                        <a href="#" id="contactCreator" class="sidebar-button"><i class="fas fa-comments"></i> Contact Creator</a>
+                        <a href="#" id="recommendButton" class="sidebar-button"><i class="fas fa-thumbs-up"></i> Recommend <span id="recommendCount">12</span></a>
+                        <a href="#" id="moreInfoButton" class="sidebar-button"><i class="fas fa-info-circle"></i> More Info</a>
                     </div>
-                </div>`;
-            infoPanel.classList.add('active');
-            infoPanel.style.display = 'block'; // Ensure the sidebar is visible
+                </div>
+            </div>`;
+
+            console.log('Sidebar should open now'); // Debugging statement
+            infoPanel.classList.add('active'); // Add 'active' class to slide in the sidebar
 
             document.getElementById('recommendButton').addEventListener('click', function () {
                 if (!recommendedUGCs.has(ugcId)) {
@@ -89,42 +96,39 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
-            document.getElementById('buyButton').addEventListener('click', function () {
-                alert("This functionality is not yet available.");
-            });
-
             document.getElementById('moreInfoButton').addEventListener('click', function () {
                 showMoreInfoModal(ugcId);
             });
 
             updateChatWindowPosition(); // Update the chat window when the sidebar is opened
+        } else {
+            console.log('Click was too far from any heatmap point'); // Debugging statement
         }
     });
 
-// Reverse geocoding function
-function reverseGeocode(lat, lng, callback) {
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data && data.results && data.results[0]) {
-                const components = data.results[0].components;
-                // Display only the city and country
-                const locationName = `${components.city || components.town || components.village || components.neighbourhood}, ${components.country}`;
-                callback(locationName);
-            } else {
+    // Reverse geocoding function
+    function reverseGeocode(lat, lng, callback) {
+        const url = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lng}&key=${apiKey}`;
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.results && data.results[0]) {
+                    const components = data.results[0].components;
+                    // Display only the city and country
+                    const locationName = `${components.city || components.town || components.village || components.neighbourhood}, ${components.country}`;
+                    callback(locationName);
+                } else {
+                    callback(`Location (${lat}, ${lng})`);
+                }
+            })
+            .catch(() => {
                 callback(`Location (${lat}, ${lng})`);
-            }
-        })
-        .catch(() => {
-            callback(`Location (${lat}, ${lng})`);
-        });
-}
+            });
+    }
 
-
+    // Close panel
     closePanelButton.addEventListener('click', function () {
-        infoPanel.classList.remove('active');
-        infoPanel.style.display = 'none'; // Hide the sidebar
+        infoPanel.classList.remove('active'); // Remove 'active' class to slide out the sidebar
         updateChatWindowPosition(); // Update chat window position when sidebar is closed
     });
 
@@ -177,34 +181,42 @@ function reverseGeocode(lat, lng, callback) {
         chatWindow.style.overflowY = 'auto'; // Enable scrolling if content overflows
         chatWindow.style.zIndex = '1001';  // Ensure it's above the map
         chatWindow.style.transition = 'right 0.5s'; // Smooth transition for movement
-    
+
         updateChatWindowPosition(); // Ensure correct placement based on sidebar state
-    
+
         document.body.appendChild(chatWindow);
-    
+
         document.querySelector('.close-chat').addEventListener('click', function () {
             document.body.removeChild(chatWindow);
         });
     }
-    
+
     function updateChatWindowPosition() {
         if (infoPanel.classList.contains('active')) {
             // If the sidebar is open, position the chat window to the left of the sidebar
-            chatWindow.style.right = `${window.innerWidth - infoPanel.offsetLeft + 20}px`; 
+            chatWindow.style.right = `${window.innerWidth - infoPanel.offsetLeft + 20}px`;
         } else {
             // If the sidebar is closed, position the chat window at the right of the viewport
             chatWindow.style.right = '20px';
         }
     }
-    
 
     // Function to show more info in a modal
     function showMoreInfoModal(ugcId) {
         const modal = document.createElement('div');
         modal.className = 'info-modal';
+        modal.style.position = 'fixed';
+        modal.style.top = '50%';
+        modal.style.left = '50%';
+        modal.style.transform = 'translate(-50%, -50%)';
+        modal.style.backgroundColor = 'white';
+        modal.style.boxShadow = '0 5px 15px rgba(0,0,0,.5)';
+        modal.style.padding = '20px';
+        modal.style.zIndex = '1002'; // Ensure it's above other elements
+
         modal.innerHTML = `
             <div class="modal-content">
-                <span class="close-modal">&times;</span>
+                <span class="close-modal" style="position: absolute; top: 10px; right: 15px; cursor: pointer; font-size: 20px;">&times;</span>
                 <h2>Metadata Information</h2>
                 <p>Here is all the metadata related to this UGC:</p>
                 <ul>
@@ -220,12 +232,70 @@ function reverseGeocode(lat, lng, callback) {
                 </ul>
             </div>
         `;
-    
+
         document.body.appendChild(modal);
-    
-        // Attach event listener for the close button
-        document.querySelector('.close-modal').addEventListener('click', function () {
+
+        // Attach the event listener for the close button
+        modal.querySelector('.close-modal').addEventListener('click', function () {
             document.body.removeChild(modal);
         });
     }
+    document.addEventListener("DOMContentLoaded", function () {
+        // Existing JavaScript code...
+    
+        // Buy Button Logic
+        function setupBuyButtonLogic() {
+            const buyPopup = document.getElementById('buyPopup');
+            const closeBuyPopup = document.querySelector('.close-buy-popup');
+            const buyWithCreditsButton = document.getElementById('buyWithCredits');
+            const buyWithCardButton = document.getElementById('buyWithCard');
+            const creditsSection = document.getElementById('creditsSection');
+            const useCreditsButton = document.getElementById('useCredits');
+            const addCreditsButton = document.getElementById('addCredits');
+    
+            document.getElementById('buyButton').addEventListener('click', function () {
+                buyPopup.style.display = 'block';
+            });
+    
+            closeBuyPopup.addEventListener('click', function () {
+                buyPopup.style.display = 'none';
+            });
+    
+            buyWithCreditsButton.addEventListener('click', function () {
+                creditsSection.classList.remove('hidden');
+            });
+    
+            useCreditsButton.addEventListener('click', function () {
+                const creditBalanceElement = document.getElementById('creditBalance');
+                let creditBalance = parseInt(creditBalanceElement.textContent);
+    
+                if (creditBalance >= 10) { // Assuming 10 credits are required to purchase
+                    alert("Purchase successful using credits!");
+                    creditBalance -= 10;
+                    creditBalanceElement.textContent = creditBalance;
+                    buyPopup.style.display = 'none';
+                } else {
+                    alert("Insufficient credits. Please add more credits.");
+                }
+            });
+    
+            addCreditsButton.addEventListener('click', function () {
+                const creditBalanceElement = document.getElementById('creditBalance');
+                let creditBalance = parseInt(creditBalanceElement.textContent);
+                creditBalance += 50; // Add 50 credits
+                creditBalanceElement.textContent = creditBalance;
+                alert("50 credits added!");
+            });
+    
+            buyWithCardButton.addEventListener('click', function () {
+                alert("Redirecting to payment portal...");
+                window.location.href = "https://payment-portal.com/checkout?ugc=1"; // Replace with actual portal link
+            });
+        }
+    
+        setupBuyButtonLogic();
+    
+        // Continue with your existing setup...
     });
+    
+});
