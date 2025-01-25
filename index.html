@@ -212,18 +212,6 @@
             }
         }
 
-        // Function to fetch local projects
-        async function fetchLocalProjects() {
-            try {
-                const response = await fetch('/projects/projects.json');
-                if (!response.ok) throw new Error('Local projects request failed');
-                return await response.json();
-            } catch (error) {
-                console.error('Error fetching local projects:', error);
-                return [];
-            }
-        }
-
         // Function to load all projects
         async function loadProjects() {
             const projectsContainer = document.getElementById('projectsContainer');
@@ -232,11 +220,10 @@
             try {
                 // Fetch both local and GitHub projects concurrently
                 const [localProjects, githubProjects] = await Promise.all([
-                    fetchLocalProjects(),
                     fetchGitHubRepos()
                 ]);
                 
-                const allProjects = [...localProjects, ...githubProjects];
+                const allProjects = [...githubProjects];
                 
                 if (allProjects.length === 0) {
                     displayPlaceholderProjects();
