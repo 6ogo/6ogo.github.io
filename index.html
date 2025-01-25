@@ -101,6 +101,35 @@
             text-decoration: underline;
         }
 
+        .home-section {
+            margin-bottom: 4rem;
+        }
+
+        .about-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-content ul {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        .about-content li {
+            margin-bottom: 0.5rem;
+            color: #636e72;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            color: #2d3436;
+            font-size: 1.1rem;
+        }
+
         footer {
             background-color: var(--primary-color);
             color: white;
@@ -126,7 +155,7 @@
 </head>
 <body>
     <header>
-        <h1>6ogo's Portfolio</h1>
+        <h1>George page</h1>
         <p>Welcome to my project showcase</p>
     </header>
 
@@ -139,6 +168,20 @@
     </nav>
 
     <main>
+        <section id="home" class="home-section">
+            <h2>About Me</h2>
+            <div class="about-content">
+                <p>I'm an AI-focused developer specializing in creating innovative solutions using artificial intelligence. My interests and focus lies in:</p>
+                <ul>
+                    <li>AI-powered applications and chatbots</li>
+                    <li>Data analysis and visualization tools</li>
+                    <li>Marketing analytics solutions</li>
+                    <li>Web and mobile development</li>
+                </ul>
+                <p>I leverage AI technologies to build intelligent applications that solve real-world problems, from marketing analytics to conversational agents and data visualization tools.</p>
+            </div>
+        </section>
+        
         <section id="projects">
             <h2>My Projects</h2>
             <div class="projects-grid" id="projectsContainer">
