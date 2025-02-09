@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>6ogo's Portfolio</title>
     <style>
+        /* Your existing CSS remains the same */
         :root {
             --primary-color: #2d3436;
             --secondary-color: #0984e3;
@@ -60,6 +61,7 @@
             max-width: 1200px;
             margin: 2rem auto;
             padding: 0 1rem;
+            margin-bottom: 5rem; /* Added to prevent footer overlap */
         }
 
         .projects-grid {
@@ -140,6 +142,15 @@
             width: 100%;
         }
 
+        .error-message {
+            text-align: center;
+            color: #e74c3c;
+            padding: 2rem;
+            background-color: var(--card-background);
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
         @media (max-width: 768px) {
             nav ul {
                 flex-direction: column;
@@ -195,11 +206,45 @@
     </footer>
 
     <script>
+        // Function to create a project card
+        function createProjectCard(project) {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            
+            const title = document.createElement('h3');
+            title.textContent = project.title;
+            
+            const description = document.createElement('p');
+            description.textContent = project.description;
+            
+            const link = document.createElement('a');
+            link.href = project.url;
+            link.textContent = 'View Project';
+            link.target = '_blank';
+            
+            card.appendChild(title);
+            card.appendChild(description);
+            card.appendChild(link);
+            
+            return card;
+        }
+
+        // Function to display error message
+        function displayError(message) {
+            const projectsContainer = document.getElementById('projectsContainer');
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            projectsContainer.appendChild(errorDiv);
+        }
+
         // Function to fetch GitHub repos
         async function fetchGitHubRepos() {
             try {
                 const response = await fetch('https://api.github.com/users/6ogo/repos');
-                if (!response.ok) throw new Error('GitHub API request failed');
+                if (!response.ok) {
+                    throw new Error(`GitHub API returned ${response.status}`);
+                }
                 const repos = await response.json();
                 return repos.map(repo => ({
                     title: repo.name,
@@ -208,7 +253,7 @@
                 }));
             } catch (error) {
                 console.error('Error fetching GitHub repos:', error);
-                return [];
+                throw error; // Propagate error to be handled by loadProjects
             }
         }
 
@@ -218,25 +263,19 @@
             projectsContainer.innerHTML = ''; // Clear existing content
             
             try {
-                // Fetch both local and GitHub projects concurrently
-                const [localProjects, githubProjects] = await Promise.all([
-                    fetchGitHubRepos()
-                ]);
+                const githubProjects = await fetchGitHubRepos();
                 
-                const allProjects = [...githubProjects];
-                
-                if (allProjects.length === 0) {
-                    displayPlaceholderProjects();
+                if (githubProjects.length === 0) {
+                    displayError('No projects found. Please check back later!');
                     return;
                 }
                 
-                allProjects.forEach(project => {
+                githubProjects.forEach(project => {
                     const projectCard = createProjectCard(project);
                     projectsContainer.appendChild(projectCard);
                 });
             } catch (error) {
-                console.error('Error loading projects:', error);
-                displayPlaceholderProjects();
+                displayError('Unable to load projects. Please try again later.');
             }
         }
 
